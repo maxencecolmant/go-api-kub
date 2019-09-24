@@ -1,16 +1,16 @@
 package configkub
-import(
-
+import (
 	"k8s.io/client-go/kubernetes"
 	"k8s.io/client-go/kubernetes/typed/core/v1"
+	_ "k8s.io/client-go/plugin/pkg/client/auth/oidc"
 	"k8s.io/client-go/tools/clientcmd"
 	"log"
-	_ "k8s.io/client-go/plugin/pkg/client/auth/oidc"
-
+	"os"
 )
 
 func Getconfig() v1.CoreV1Interface {
-	kubeConfigPath := "/Users/maxence/.bluemix/plugins/container-service/clusters/bm12i98f0vornrm8jes0/kube-config-mil01-mycluster.yml"
+	os.LookupEnv("KUBECONFIG")
+	kubeConfigPath, _ := os.LookupEnv("KUBECONFIG")
 	config, err := clientcmd.BuildConfigFromFlags("", kubeConfigPath)
 	if err != nil {
 		log.Fatal(err)
