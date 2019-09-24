@@ -9,7 +9,7 @@ import (
 )
 
 func Getconfig() v1.CoreV1Interface {
-	os.LookupEnv("KUBECONFIG")
+
 	kubeConfigPath, _ := os.LookupEnv("KUBECONFIG")
 	config, err := clientcmd.BuildConfigFromFlags("", kubeConfigPath)
 	if err != nil {

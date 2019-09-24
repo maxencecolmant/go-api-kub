@@ -4,14 +4,16 @@ import (
 	"fmt"
 	"github.com/gorilla/mux"
 	"log"
-	"net/http"
 	"main/pkg"
+	"net/http"
 )
 func main() {
 	router := mux.NewRouter().StrictSlash(true)
 	router.HandleFunc("/", project)
 	router.HandleFunc("/namespaces", pkg.GetNs)
 	router.HandleFunc("/pods", pkg.GetPods)
+	router.HandleFunc("/nodes", pkg.GetNodes)
+	router.HandleFunc("/services", pkg.GetServices)
 	log.Fatal(http.ListenAndServe(":8080", router))
 
 	}

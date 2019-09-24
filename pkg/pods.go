@@ -15,8 +15,9 @@ func GetPods(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		log.Fatal(err)
 	}
-
 	fmt.Fprint( w, pods )
+
+
 }
 
 
