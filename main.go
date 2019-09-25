@@ -14,6 +14,7 @@ func main() {
 	router.HandleFunc("/pods", pkg.GetPods)
 	router.HandleFunc("/nodes", pkg.GetNodes)
 	router.HandleFunc("/services", pkg.GetServices)
+	router.HandleFunc("/namespaces/{nsname}", pkg.GetNsName)
 	log.Fatal(http.ListenAndServe(":8080", router))
 
 	}
@@ -24,3 +25,5 @@ func project(w http.ResponseWriter, r *http.Request){
 
 
 }
+
+
