@@ -1,4 +1,5 @@
 package configkub
+
 import (
 	"k8s.io/client-go/kubernetes"
 	"k8s.io/client-go/kubernetes/typed/core/v1"
@@ -10,6 +11,7 @@ import (
 
 func Getconfig() v1.CoreV1Interface {
 
+	//config, err := rest.InClusterConfig()
 	kubeConfigPath, _ := os.LookupEnv("KUBECONFIG")
 	config, err := clientcmd.BuildConfigFromFlags("", kubeConfigPath)
 	if err != nil {

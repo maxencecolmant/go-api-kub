@@ -1,6 +1,7 @@
 package pkg
 
 import (
+	"encoding/json"
 	"fmt"
 	"github.com/gorilla/mux"
 	v1 "k8s.io/api/core/v1"
@@ -31,7 +32,7 @@ func GetNs(w http.ResponseWriter, r *http.Request) {
 		log.Fatal(err)
 	}
 
-	fmt.Fprint( w, ns )
+	json.NewEncoder(w).Encode(ns)
 }
 
 
@@ -46,11 +47,11 @@ func GetNsName(w http.ResponseWriter, r *http.Request) {
 	//listOptions := m
 	ns, err := api.Namespaces().Get(nsname,getoption )
 	if err != nil {
-		fmt.Fprint(w,"This namespace doesn't exist")
+		json.NewEncoder(w).Encode("This Namespace doesn't exist")
 	}
 
 
-	fmt.Fprint( w, ns)
+	json.NewEncoder(w).Encode(ns)
 
 }
 
@@ -74,6 +75,7 @@ func CreateNs(w http.ResponseWriter, r *http.Request)  {
 		fmt.Fprint(w,"The namespace ", nsname," already exist")
 	}else {
 		fmt.Fprint( w, "The namespace : ",ns.Name," have been created")
+		json.NewEncoder(w).Encode(ns)
 	}
 }
 
@@ -92,6 +94,5 @@ func DeleteNs(w http.ResponseWriter, r *http.Request)  {
 	}else {
 		fmt.Fprint(w ,"The namespace ", nsname, " have been deleted")
 	}
-
 
 }

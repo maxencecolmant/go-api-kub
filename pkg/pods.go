@@ -1,7 +1,7 @@
 package pkg
 
 import (
-	"fmt"
+	"encoding/json"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"log"
 	"main/configkub"
@@ -15,7 +15,8 @@ func GetPods(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		log.Fatal(err)
 	}
-	fmt.Fprint( w, pods )
+	json.NewEncoder(w).Encode(pods.Items)
+
 
 
 }

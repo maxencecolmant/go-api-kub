@@ -4,7 +4,7 @@ replicaCount: 1
 revisionHistoryLimit: 1
 image:
   repository: maxencecolmant/goapi
-  tag: kub-1
+  tag: iks-new
   pullPolicy: IfNotPresent
   resources:
     requests:

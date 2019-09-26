@@ -1,8 +1,8 @@
 package pkg
 
 import (
+	"encoding/json"
 	_ "encoding/json"
-	"fmt"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"log"
 	"main/configkub"
@@ -26,7 +26,7 @@ func GetServices(w http.ResponseWriter, r *http.Request)  {
 	if err != nil {
 		log.Fatal(err)
 	}
+	json.NewEncoder(w).Encode(services.Items)
 
-	fmt.Fprint(w, services.Items)
 
 }
