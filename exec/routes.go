@@ -11,13 +11,13 @@ import (
 func GetRoutes() {
 	router := mux.NewRouter().StrictSlash(true)
 	router.HandleFunc("/", project)
-	router.HandleFunc("/namespaces", pkg.GetNs)
-	router.HandleFunc("/pods", pkg.GetPods)
-	router.HandleFunc("/nodes", pkg.GetNodes)
-	router.HandleFunc("/services", pkg.GetServices)
-	router.HandleFunc("/namespaces/{nsname}", pkg.GetNsName)
-	router.HandleFunc("/namespaces/create/{nsname}", pkg.CreateNs)
-	router.HandleFunc("/namespaces/delete/{nsname}", pkg.DeleteNs)
+	router.HandleFunc("/api/namespaces", pkg.GetNs)
+	router.HandleFunc("/api/pods", pkg.GetPods)
+	router.HandleFunc("/api/nodes", pkg.GetNodes)
+	router.HandleFunc("/api/services", pkg.GetServices)
+	router.HandleFunc("/api/namespaces/{nsname}", pkg.GetNsName)
+	router.HandleFunc("/api/namespaces/create/{nsname}", pkg.CreateNs)
+	router.HandleFunc("/api/namespaces/delete/{nsname}", pkg.DeleteNs)
 	log.Fatal(http.ListenAndServe(":8080", router))
 }
 
