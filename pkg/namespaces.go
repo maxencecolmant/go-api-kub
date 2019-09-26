@@ -14,10 +14,10 @@ func GetNs(w http.ResponseWriter, r *http.Request) {
 	api := configkub.Getconfig()
 	listOptions := metav1.ListOptions{
 		TypeMeta:            metav1.TypeMeta{
-			Kind:       "spec",
+			Kind:       "Namespace",
 			APIVersion: "v1",
 		},
-		LabelSelector:       "name",
+		LabelSelector:       "",
 		FieldSelector:       "",
 		Watch:               false,
 		AllowWatchBookmarks: false,
@@ -78,5 +78,20 @@ func CreateNs(w http.ResponseWriter, r *http.Request)  {
 }
 
 func DeleteNs(w http.ResponseWriter, r *http.Request)  {
+	vars := mux.Vars(r)
+	nsname := vars["nsname"]
+
+	api := configkub.Getconfig()
+	deletePolicy := metav1.DeletePropagationForeground
+	deleteOption := &metav1.DeleteOptions{
+		PropagationPolicy: &deletePolicy,
+	}
+	var namespaceDel= api.Namespaces().Delete(nsname,deleteOption)
+	if namespaceDel != nil {
+		fmt.Fprint(w,"The namespace ", nsname," dont exist")
+	}else {
+		fmt.Fprint(w ,"The namespace ", nsname, " have been deleted")
+	}
+
 
 }
