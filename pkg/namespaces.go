@@ -3,6 +3,7 @@ package pkg
 import (
 	"fmt"
 	"github.com/gorilla/mux"
+	v1 "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"log"
 	"main/configkub"
@@ -42,7 +43,7 @@ func GetNsName(w http.ResponseWriter, r *http.Request) {
 		TypeMeta:        metav1.TypeMeta{},
 		ResourceVersion: "",
 	}
-	//listOptions := metav1.ListOptions{}
+	//listOptions := m
 	ns, err := api.Namespaces().Get(nsname,getoption )
 	if err != nil {
 		fmt.Fprint(w,"This namespace doesn't exist")
@@ -53,3 +54,29 @@ func GetNsName(w http.ResponseWriter, r *http.Request) {
 
 }
 
+
+func CreateNs(w http.ResponseWriter, r *http.Request)  {
+	vars := mux.Vars(r)
+	nsname := vars["nsname"]
+
+
+	api := configkub.Getconfig()
+	namespace := &v1.Namespace{
+		ObjectMeta: metav1.ObjectMeta{
+			Name: nsname,
+		},
+		Status: v1.NamespaceStatus{
+			Phase: v1.NamespaceActive,
+		},
+	}
+	var ns, _ = api.Namespaces().Create(namespace)
+
+
+//rajouter execptions
+
+	fmt.Fprint( w, "le namespace : ",ns," a bien été crée")
+}
+
+func DeleteNs(w http.ResponseWriter, r *http.Request)  {
+
+}

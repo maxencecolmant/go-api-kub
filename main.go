@@ -15,6 +15,7 @@ func main() {
 	router.HandleFunc("/nodes", pkg.GetNodes)
 	router.HandleFunc("/services", pkg.GetServices)
 	router.HandleFunc("/namespaces/{nsname}", pkg.GetNsName)
+	router.HandleFunc("/namespaces/create/{nsname}", pkg.CreateNs)
 	log.Fatal(http.ListenAndServe(":8080", router))
 
 	}

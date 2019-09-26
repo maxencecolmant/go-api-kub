@@ -1,13 +1,12 @@
 package pkg
 
 import (
+	_ "encoding/json"
 	"fmt"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"log"
 	"main/configkub"
 	"net/http"
-	_"encoding/json"
-
 )
 
 func GetServices(w http.ResponseWriter, r *http.Request)  {
