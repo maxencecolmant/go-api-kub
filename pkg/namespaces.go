@@ -69,12 +69,12 @@ func CreateNs(w http.ResponseWriter, r *http.Request)  {
 			Phase: v1.NamespaceActive,
 		},
 	}
-	var ns, _ = api.Namespaces().Create(namespace)
-
-
-//rajouter execptions
-
-	fmt.Fprint( w, "le namespace : ",ns," a bien été crée")
+	var ns,err = api.Namespaces().Create(namespace)
+	if err != nil {
+		fmt.Fprint(w,"The namespace ", nsname," already exist")
+	}else {
+		fmt.Fprint( w, "The namespace : ",ns.Name," have been created")
+	}
 }
 
 func DeleteNs(w http.ResponseWriter, r *http.Request)  {
