@@ -6,7 +6,6 @@ import (
 	"github.com/gorilla/mux"
 	v1 "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-	"log"
 	"main/configkub"
 	"net/http"
 )
@@ -29,7 +28,7 @@ func GetNs(w http.ResponseWriter, r *http.Request) {
 	}
 	ns, err := api.Namespaces().List(listOptions)
 	if err != nil {
-		log.Fatal(err)
+		json.NewEncoder(w).Encode(err)
 	}
 
 	json.NewEncoder(w).Encode(ns)
